@@ -1,41 +1,52 @@
-var express = require('express');
-var s3 = require('s3');
-var config = require('./config');
-var app = express();
+const express = require('express');
+const app = express();
+const s3 = require("./aws_client")
+const bodyParser = require('body-parser');
 
-// Set up s3 credentials
-var client = s3.createClient({
-  s3Options: {
-    accessKeyId: config.key,
-    secretAccessKey: config.secret
-  }
-});
 
-app.use('/', express.static(__dirname));
+app.use(bodyParser.json());
 
-app.get('/audio', function(req, res) {
+app.get('/artists', (req, res) => {
+  s3.listArtists((data) => { res.send(data) })
+})
 
-  var params = {
-    Bucket: config.bucket,
-    Key: 'test.mp3'
-  };
+app.get("/artists/:artist/albums", (req, res) => {
+  s3.listAlbums(req.params.artist, (data) => {
+    res.send(data)
+  })
+})
 
-  var downloadStream = client.downloadStream(params);
+app.get("/artists/:artist/albums/:album/songs", (req, res) => {
+  let albumPath = `${req.params.artist}/${req.params.album}`
+  s3.listSongs(albumPath, (data) => {
+    res.send(data)
+  })
+})
 
-  downloadStream.on('error', function() {
-    res.status(404).send('Not Found');
-  });
-  downloadStream.on('httpHeaders', function(statusCode, headers, resp) {
-    // Set Headers
-    res.set({
-      'Content-Type': headers['content-type']
-    });
-  });
+// res.render(s3.listArtists((data) => console.log(data)))
+//   var params = {
+//     Bucket: config.bucket,
+//     Key: 'test.mp3'
+//   };
 
-  // Pipe download stream to response
-  downloadStream.pipe(res);
-});
+//   var downloadStream = client.downloadStream(params);
 
-app.listen(3000, function() {
+//   downloadStream.on('error', function () {
+//     res.status(404).send('Not Found')f;
+//   });
+//   downloadStream.on('httpHeaders', function (statusCode, headers, resp) {
+//     // Set Headers
+//     res.set({
+//       'Content-Type': headers['content-type']
+//     });
+//   });
+
+//   // Pipe download stream to response
+//   downloadStream.pipe(res);
+
+
+
+app.listen(3000, function () {
   console.log('makin music on 3000');
 });
+
