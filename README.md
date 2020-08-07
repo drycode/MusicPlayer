@@ -1,35 +1,68 @@
-# S3 MusicPlayer
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-> A simple AWS S3 / Node / React application for playing personal music
+## Available Scripts
 
-![last-commit][last-commit]
-![open-issues][open-url]
+In the project directory, you can run:
 
-As a professional musician and teacher, I have several terrabytes of proprietary audio data. In an attempt to keep my storage costs low, and keep my data highly available, I put together a web application which will allow me to store recordings for a reasonable price in AWS S3 (Infrequent Access). 
+### `npm start`
 
-Design Considerations
-* I choose to use NodeJS for the backend because it seemed like an appropriate language to serve streaming content. Also, as someone with more experience in Python and synchronous programming patterns, I am using this as an opportunity to practice event-driven programming 
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Installation
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-Be sure to first install the latest versions of [Node](https://nodejs.org/en/) and [React](https://www.tutorialspoint.com/reactjs/reactjs_environment_setup.htm). 
+### `npm test`
 
-```sh
-~ git clone https://github.com/danyoungmusic93/S3PlayMusic
-```
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Development setup
+### `npm run build`
 
-Be sure to create separate dependency management systems for the `./server` and `./client` directories. 
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-```sh
-~ cd client
-~ npm install
-~ cd ../server
-~ npm install
-```
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-Follow subsequent readme directions in the [client](client/README.md) and [server](server/README.md) directories
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-[open-url]: https://img.shields.io/github/issues-raw/danyoungmusic93/S3PlayMusic.svg
-[last-commit]: https://img.shields.io/github/last-commit/danyoungmusic93/S3PlayMusic.svg
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
