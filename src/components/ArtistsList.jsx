@@ -1,69 +1,45 @@
-import React, { Component } from 'react';
+import artistCard from "./ArtistCard";
+import React, { Component, useState } from "react";
 
-import axios from 'axios'
+import { connect, useSelector, useDispatch } from "react-redux";
+import { getArtists } from "../redux/actions/initializeArtists";
 
-class ArtistsList extends Component {
+const mapStateToProps = (state) => {
+  return { ...state };
+};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      artists: [],
-      showComponent: true,
-      selectedArtist: this.props.selectedArtist
-    }
+class ArtistList extends Component {
+  constructor() {
+    super();
+    this.listItems = this.listItems.bind(this);
   }
 
-  handleClick(artist) {
-    this.props.onChange(artist)
-    this.setState({ showComponent: false })
-  }
-
-  listArtists() {
-    const listArtists = Object.keys(this.state.artists).map((artist, i = 1) =>
-      <div key={artist} className="col-3">
-        <li key={artist} className="list-group-item" onClick={() => this.handleClick(artist)} >
-          {artist}
-        </li >
-      </div >
-    );
-    return (
-      <div className="artists-container">
-        <div id="artists-list" className="row" >{listArtists}</ div>
-      </div>
-    );
+  listItems(items) {
+    return items.map((item) => <ul>{artistCard(item)}</ul>);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.selectedArtist !== this.props.selectedArtist) {
-      this.setState({ selectedArtist: this.props.selectedArtist })
-      if (!this.props.selectedArtist) {
-        this.setState({ showComponent: true })
-      }
+    if (prevProps !== this.props) {
+      this.setState({ ...this.props });
     }
   }
 
-
   componentDidMount() {
-    axios.get("/artists")
-      .then(res => {
-        console.log(res.data)
-        this.setState({ artists: res.data })
-      })
-      .catch(err => console.log(err));
+    this.props.getArtists(this.props.pagination);
   }
 
   render() {
-    if (this.state.showComponent) {
+    if (this.state?.artists) {
       return (
-        <ul>
-          {this.listArtists(this.props.name)}
-        </ul>
+        <div className="container">
+          <h4>Artists</h4>
+          <div className="container">{this.listItems(this.state.artists)}</div>
+        </div>
       );
+    } else {
+      return <></>;
     }
-
-    return <></>
-
   }
 }
 
-export default ArtistsList;
+export default connect(mapStateToProps, { getArtists })(ArtistList);
